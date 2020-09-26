@@ -1,5 +1,6 @@
-﻿
+﻿using System;
 using Trendyol.ShoppingCart.Repository;
+using Trendyol.ShoppingCart.Service.Util;
 
 namespace Trendyol.ShoppingCart.Service
 {
@@ -12,12 +13,20 @@ namespace Trendyol.ShoppingCart.Service
 
         public decimal GetCouponDiscount(decimal couponId, decimal cartAmount)
         {
-            var coupon = _couponRepostory.FindById(couponId);
+            try
+            {
+                var coupon = _couponRepostory.FindById(couponId);
 
-            if(cartAmount >= coupon.AmountConstraint)
-                return coupon.Discount;
+                if (cartAmount >= coupon.AmountConstraint)
+                    return coupon.Discount;
 
-            return 0;
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("GetCouponDiscount", ex);
+            }
+            
         }
 
     }

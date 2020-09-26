@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Trendyol.ShoppingCart.Model;
+using Trendyol.ShoppingCart.Repository.Util;
 
 namespace Trendyol.ShoppingCart.Repository
 {
@@ -15,23 +17,101 @@ namespace Trendyol.ShoppingCart.Repository
         
         public void Add(Product product)
         {
-            product.Id = ++ms_index;
-            _products.Add(product);
+            try
+            {
+                product.Id = ++ms_index;
+                _products.Add(product);
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("Add", ex);
+            }
+
         }
 
-        public IEnumerable<Product> All() => _products;
+        public IEnumerable<Product> All()
+        {
+            try
+            {
+                return _products;
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("Add", ex);
+            }
+            
+        }
 
-        public int Count() => _products.Count();
+        public int Count()
+        {
+            try
+            {
+                return _products.Count();
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("Add", ex);
+            }
+        }
 
-        public void DeleteById(decimal id) => _products.Remove(_products.FirstOrDefault(p => p.Id == id));
+        public void DeleteById(decimal id)
+        {
+            try
+            {
+                _products.Remove(_products.FirstOrDefault(p => p.Id == id));
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("Add", ex);
+            }
+        }
 
-        public bool ExitsById(decimal id) => FindById(id) != null;
+        public bool ExitsById(decimal id)
+        {
+            try
+            {
+                return FindById(id) != null;
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("Add", ex);
+            }
+        }
 
-        public Product FindById(decimal id) => _products.FirstOrDefault(p => p.Id == id);
+        public Product FindById(decimal id)
+        {
+            try
+            {
+                return _products.FirstOrDefault(p => p.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("Add", ex);
+            }
+        }
 
-        public Product FindByTitle(string title) => _products.FirstOrDefault(p => p.Title == title);
+        public Product FindByTitle(string title)
+        {
+            try
+            {
+                return _products.FirstOrDefault(p => p.Title == title);
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("Add", ex);
+            }
+        }
 
-        public bool ExitsByTitle(string title) => FindByTitle(title) != null;
-
+        public bool ExitsByTitle(string title)
+        {
+            try
+            {
+                return FindByTitle(title) != null;
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("Add", ex);
+            }
+        }
     }
 }

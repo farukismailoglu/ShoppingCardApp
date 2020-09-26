@@ -1,5 +1,7 @@
-﻿using Trendyol.ShoppingCart.Model;
+﻿using System;
+using Trendyol.ShoppingCart.Model;
 using Trendyol.ShoppingCart.Repository;
+using Trendyol.ShoppingCart.Service.Util;
 
 namespace Trendyol.ShoppingCart.Service
 {
@@ -16,8 +18,17 @@ namespace Trendyol.ShoppingCart.Service
 
         private decimal ProductDeliveryCost(decimal id) => productDeliveryCost * _cartRepository.TotalProductCount(id);
 
-        public decimal GetDeliveryCost(Cart cart) => DeliveryCost(cart.Id) + ProductDeliveryCost(cart.Id);
-
-
+        public decimal GetDeliveryCost(Cart cart)
+        {
+            try
+            {
+                return DeliveryCost(cart.Id) + ProductDeliveryCost(cart.Id);
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("GetDeliveryCost", ex);
+            }
+            
+        }
     }
 }

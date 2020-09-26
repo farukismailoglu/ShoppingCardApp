@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using Trendyol.ShoppingCart.Model;
+using Trendyol.ShoppingCart.Repository.Util;
 
 namespace Trendyol.ShoppingCart.Repository
 {
@@ -21,36 +23,129 @@ namespace Trendyol.ShoppingCart.Repository
 
         public void Add(Campaign campaign)
         {
-            if (!ExitsByTitle(campaign.Title))
+            try
             {
-                campaign.Id += ++ms_index;
-                _campaigns.Add(campaign);
+                if (!ExitsByTitle(campaign.Title))
+                {
+                    campaign.Id += ++ms_index;
+                    _campaigns.Add(campaign);
+                }
             }
+            catch (Exception ex)
+            {
+
+                throw new RepositoryException("Add", ex);
+            }
+            
         }
 
         public void DeleteById(decimal id)
         {
-            var c = FindById(id);
+            try
+            {
+                var c = FindById(id);
 
-            if (c == null)
-                return;
+                if (c == null)
+                    return;
 
-            _campaigns.Remove(c);
+                _campaigns.Remove(c);
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("DeleteById", ex);
+            }
+            
         }
 
-        public bool ExitsById(decimal id) => FindById(id) != null;
+        public bool ExitsById(decimal id)
+        {
+            try
+            {
+                return FindById(id) != null;
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("ExitsById" ,ex);
+            }
+            
+        }
 
-        public Campaign FindById(decimal id) => _campaigns.FirstOrDefault(c => c.Id == id);
+        public Campaign FindById(decimal id)
+        {
+            try
+            {
+                return _campaigns.FirstOrDefault(c => c.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("FindById", ex);
+            }
+            
+        }
 
-        public Campaign FindByTitle(string title) => _campaigns.FirstOrDefault(c => c.Title == title);
+        public Campaign FindByTitle(string title)
+        {
+            try
+            {
+                return _campaigns.FirstOrDefault(c => c.Title == title);
 
-        public bool ExitsByTitle(string title) => FindByTitle(title) != null;
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("FindByTitle", ex);
+            }
+        }
 
-        public int Count() => _campaigns.Count();
+        public bool ExitsByTitle(string title)
+        {
+            try
+            {
+                return FindByTitle(title) != null;
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("ExitsByTitle", ex);
+            }
+            
+        }
 
-        public void Clear() => _campaigns.Clear();
+        public int Count()
+        {
+            try
+            {
+                return _campaigns.Count();
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("Count", ex);
+            }
+            
+        }
 
-        public Campaign FindByCategoryId(decimal categoryId) => _campaigns.FirstOrDefault(c => c.CategoryId == categoryId);
+        public void Clear()
+        {
+            try
+            {
+                _campaigns.Clear();
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("Clear", ex);
+            }
 
+        }
+
+        public Campaign FindByCategoryId(decimal categoryId)
+        {
+            try
+            {
+                return _campaigns.FirstOrDefault(c => c.CategoryId == categoryId);
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("FindByCategoryId", ex);
+            }
+            
+        }
     }
 }

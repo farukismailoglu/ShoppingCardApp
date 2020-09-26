@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Trendyol.ShoppingCart.Model;
 using Trendyol.ShoppingCart.Repository;
+using Trendyol.ShoppingCart.Service.Util;
 
 namespace Trendyol.ShoppingCart.Service
 {
@@ -31,12 +33,21 @@ namespace Trendyol.ShoppingCart.Service
 
         public decimal GetCampainsTotal(Cart cart)
         {
-            decimal totalDiscount = 0;
+            try
+            {
+                decimal totalDiscount = 0;
 
-            foreach (var cartItem in cart.Carts)
-                totalDiscount = SumCampaignDiscount(cartItem.Product.CategoryId, cartItem.Quantity);
+                foreach (var cartItem in cart.Carts)
+                    totalDiscount = SumCampaignDiscount(cartItem.Product.CategoryId, cartItem.Quantity);
 
-            return totalDiscount;
+                return totalDiscount;
+            }
+            catch (Exception ex)
+            {
+
+                throw new ServiceException("GetCampainsTotal", ex);
+            }
+            
         }
 
     }
