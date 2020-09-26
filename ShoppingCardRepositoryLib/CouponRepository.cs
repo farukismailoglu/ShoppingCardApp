@@ -25,6 +25,7 @@ namespace Trendyol.ShoppingCart.Repository
                 else
                 {
                     var updateCoupon = FindById(coupon.Id);
+
                     updateCoupon.Discount = coupon.Id;
                     updateCoupon.AmountConstraint = coupon.AmountConstraint;
 

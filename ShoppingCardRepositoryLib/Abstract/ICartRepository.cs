@@ -1,4 +1,5 @@
-﻿using Trendyol.ShoppingCart.Model;
+﻿using System.Collections.Generic;
+using Trendyol.ShoppingCart.Model;
 
 namespace Trendyol.ShoppingCart.Repository
 {
@@ -8,5 +9,9 @@ namespace Trendyol.ShoppingCart.Repository
 
 
         public int TotalProductCount(decimal id);
+
+        public void ClearAll();
+
+        public IEnumerable<CartItem> All();
     }
 }

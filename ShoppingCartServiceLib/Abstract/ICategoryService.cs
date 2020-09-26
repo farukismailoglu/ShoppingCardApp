@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Trendyol.ShoppingCart.Service
 {
-    public interface ICampaignService : IBaseService
+    public interface ICategoryService : IBaseService
     {
     }
 }

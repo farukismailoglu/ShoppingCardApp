@@ -40,14 +40,6 @@ namespace ShoppingCartRepositoryLib.Test
             Assert.AreEqual(waitValue, totalProductCount);
         }
 
-        //[TestMethod]
-        //public void GetAllProducts()
-        //{
-        //    int waitValue = 2;
-        //    var totalProductCount = _productRepository.Count;
-
-        //    Assert.AreEqual(waitValue, totalProductCount);
-        //}
 
         [TestMethod]
         public void AddProducts()

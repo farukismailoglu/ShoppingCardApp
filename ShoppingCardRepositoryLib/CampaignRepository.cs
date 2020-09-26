@@ -30,10 +30,15 @@ namespace Trendyol.ShoppingCart.Repository
                     campaign.Id += ++ms_index;
                     _campaigns.Add(campaign);
                 }
+                else
+                {
+                    var updateCategory = FindByCategoryId(campaign.CategoryId);
+                    updateCategory.CategoryId = campaign.CategoryId;
+                    updateCategory.Discount = campaign.Discount;
+                }
             }
             catch (Exception ex)
             {
-
                 throw new RepositoryException("Add", ex);
             }
             

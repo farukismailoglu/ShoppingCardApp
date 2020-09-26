@@ -17,8 +17,17 @@ namespace Trendyol.ShoppingCart.Repository
         public CategoryRepository(Category category) => _categories.Add(category);
 
         public void Add(Category category) {
-            category.Id = ++ms_index;
-            _categories.Add(category);
+            if (!ExitsByTitle(category.Title)) { 
+                category.Id = ++ms_index;
+                _categories.Add(category);
+            }
+            else
+            {
+                var updateCategory = FindById(category.Id);
+
+                updateCategory.ParentCategoryId = category.ParentCategoryId;
+                updateCategory.Products = category.Products;
+            }
         }
         public IEnumerable<Category> All()
         {

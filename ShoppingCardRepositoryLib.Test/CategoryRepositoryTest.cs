@@ -48,7 +48,7 @@ namespace ShoppingCartRepositoryLib.Test
         public void FindById()
         {            
             var waitId = 2;
-            var waitTitle = "Elektronik";
+            var waitTitle = "Sebze";
 
             var findCategory = _categoryRepository.FindById(2);
 

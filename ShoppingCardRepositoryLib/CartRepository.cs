@@ -26,12 +26,12 @@ namespace Trendyol.ShoppingCart.Repository
                 if (!ExitsByTitle(cartItem.Product.Title))
                 {
                     cartItem.Id = ++ms_index;
+                    cartItem.Id = ++ms_index;
                     _cart.Carts.Add(cartItem);
                 }
                 else
                 {
-                    var a = _cart.Carts.FirstOrDefault(c => c.Product.Title != cartItem.Product.Title);
-                    a.Quantity += cartItem.Quantity;
+                    FindByTitle(cartItem.Product.Title).Quantity += cartItem.Quantity;
                 }
             }
             catch (Exception ex )
@@ -137,6 +137,32 @@ namespace Trendyol.ShoppingCart.Repository
                 throw new RepositoryException("TotalProductCount", ex);
             }
             
+        }
+
+        public void ClearAll()
+        {
+            try
+            {
+                _cart.Carts.Clear();
+            }
+            catch (Exception ex)
+            {
+
+                throw new RepositoryException("ClearAll", ex);
+            }
+            
+        }
+
+        public IEnumerable<CartItem> All()
+        {
+            try
+            {
+                return _cart.Carts;
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("All", ex);
+            }
         }
     }
 }

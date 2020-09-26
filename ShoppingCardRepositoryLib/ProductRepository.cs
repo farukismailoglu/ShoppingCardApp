@@ -19,8 +19,16 @@ namespace Trendyol.ShoppingCart.Repository
         {
             try
             {
-                product.Id = ++ms_index;
-                _products.Add(product);
+                if (!ExitsByTitle(product.Title)) { 
+                    product.Id = ++ms_index;
+                    _products.Add(product);
+                }
+                else
+                {
+                    var updateProduct = FindByTitle(product.Title);
+                    updateProduct.Price = product.Price;
+                    updateProduct.CategoryId = product.CategoryId;
+                }
             }
             catch (Exception ex)
             {
