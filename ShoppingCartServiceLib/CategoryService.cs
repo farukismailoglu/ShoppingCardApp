@@ -11,7 +11,7 @@ namespace Trendyol.ShoppingCart.Service
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
-        public CategoryService(ICategoryService categoryService) => _categoryRepository = categoryService;
+        public CategoryService(ICategoryRepository categoryRepository) => _categoryRepository = categoryRepository;
 
         public void Add(Category category)
         {
