@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Trendyol.ShoppingCart.Service</RootNamespace>
+    <AssemblyName>Trendyol.ShoppingCartServiceLib</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShoppingCardRepositoryLib\ShoppingCartRepositoryLib.csproj" />
+  </ItemGroup>
+
+</Project>
